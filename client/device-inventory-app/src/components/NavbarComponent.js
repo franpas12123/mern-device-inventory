@@ -22,7 +22,7 @@ export default class NavbarComponent extends Component {
                     </Navbar.Brand>
                     <Nav className="ml-auto">
                         <Nav.Link href="/create">Add Device</Nav.Link>
-                        <Nav.Link href="/">List Devices</Nav.Link>
+                        <Nav.Link href="/devices">List Devices</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
