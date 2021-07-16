@@ -1,21 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-// import { Bar } from 'react-chartjs-2';
-import {
-    BarChart, CartesianGrid,
-    XAxis,
-    YAxis,
-    Tooltip,
-    Legend,
-    Bar,
-} from 'recharts';
 
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
-// import VerticalBar from './VerticalBar';
+import VerticalBar from './VerticalBar';
 
 const Device = props => {
     const { _id, name, field, description, images, availability } = props.device
@@ -50,41 +41,8 @@ export default class DevicesList extends Component {
                 const availability = []
                 res.data.forEach(device => { availability.push(device.availability.substring(0, 10)) })
                 this.setState({ availability })
-                this.countAvailability()
             })
             .catch(err => console.log(err))
-    }
-
-
-    countAvailability() {
-        // console.log(dates)
-        const dates = this.state.availability
-        const datesCount = []
-        const { labels, datasets } = this.state.data
-        dates.forEach(date => {
-            const foundDateCount = labels.find(label => label === date)
-            // console.log('-------------------')
-            // console.log(foundDateCount)
-            if (!foundDateCount) {
-                this.setState((state) => {
-                    state.uniqueAvailability = [...state.uniqueAvailability, { label: date, count: 1 }]
-                    // state.data.labels = [...state.data.labels, date]
-                    // state.data.datasets[0].data.push(1)
-                })
-                // this.state.data.labels.push(date)
-                // datasets[0].data.push(1)
-            } else {
-                // console.log(labels)
-                const index = labels.indexOf(date)
-                // console.log(datasets.data[index])
-                // this.setState(state => state.data.datasets[0].data[index] += 1)
-                // console.log(index)
-                // datasets[0].data[index] += 1
-                // foundDateCount.count++
-            }
-        })
-        console.log(this.state)
-        return datesCount
     }
 
     // List all devices
@@ -107,14 +65,7 @@ export default class DevicesList extends Component {
         return (
             <Container>
                 {console.log(this.state.data)}
-                <BarChart width={730} height={250} data={this.state.uniqueAvailability}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="labels" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="count" fill="#8884d8" />
-                </BarChart>
+                <VerticalBar></VerticalBar>
                 <div>
                     <br></br>
                     <Table striped bordered hover variant="dark" responsive>
