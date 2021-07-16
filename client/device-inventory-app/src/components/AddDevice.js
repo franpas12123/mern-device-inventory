@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Form from 'react-bootstrap/Form'
@@ -45,11 +46,11 @@ export default class AddDevice extends Component {
 
     onChangeAvailability(date) {
         this.setState({
-            availability: date
+            availability: new Date(date)
         })
     }
 
-    onSubmit(e) {
+    async onSubmit(e) {
         e.preventDefault()
         const newDevice = {
             name: this.state.name,
@@ -59,9 +60,12 @@ export default class AddDevice extends Component {
         }
 
         // Save to db
-        console.log(newDevice)
+        const res = await axios.post('http://localhost:5000/devices', newDevice)
 
-        // window.location = '/'
+        if (res.status === 200) {
+            console.log(res.data)
+            window.location = '/'
+        }
     }
     render() {
         return (
