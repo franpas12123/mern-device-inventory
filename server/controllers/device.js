@@ -6,6 +6,12 @@ function getDevice(req, res) {
         .catch(err => res.status(400).json(`Error: ${err}`))
 }
 
+function deleteDevice(req, res) {
+    Device.findByIdAndDelete(req.params.id)
+        .then(device => res.json(device))
+        .catch(err => res.status(400).json(`Error: ${err}`))
+}
+
 function addDevice(req, res) {
     const { name, field, description, images } = req.body
 
@@ -25,5 +31,6 @@ function checkHealth(req, res) {
 module.exports = {
     getDevice,
     addDevice,
-    checkHealth
+    checkHealth,
+    deleteDevice
 }
