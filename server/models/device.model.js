@@ -7,7 +7,7 @@ const deviceSchema = new Schema({
     name: { type: String, required: true },
     field: { type: String, required: true },
     description: { type: String, required: true },
-    images: { type: String, required: true },
+    images: { type: String, required: false },
     availability: { type: Date, required: true }
 }, { timestamps: true })
 
