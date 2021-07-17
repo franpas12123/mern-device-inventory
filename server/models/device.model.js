@@ -8,7 +8,7 @@ const deviceSchema = new Schema({
     field: { type: String, required: true },
     description: { type: String, required: true },
     images: { type: String, required: false },
-    availability: { type: Date, required: true }
+    availability: { type: Boolean, required: true }
 }, { timestamps: true })
 
 const Device = mongoose.model('Device', deviceSchema)
