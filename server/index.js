@@ -20,6 +20,7 @@ connection.once('open', () => {
 const devicesRouter = require('./routes/device')
 
 app.use('/devices', devicesRouter)
+app.use('/health', (req, res) => res.json({ health: 'healthy' }))
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`)

@@ -16,7 +16,7 @@ const Device = props => {
             <td>{field}</td>
             <td>{description}</td>
             <td>{images}</td>
-            <td>{availability.substring(0, 10)}</td>
+            <td>{availability}</td>
             <td style={{ display: 'flex', justifyContent: 'space-evenly' }}><Link to={'/edit/' + _id}><Button className="button" variant="primary">Edit</Button></Link>  <Button className="button" variant="danger" onClick={() => { props.deleteDevice(_id) }}>Delete</Button></td>
         </tr>
     )

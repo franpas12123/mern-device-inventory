@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import DatePicker from 'react-datepicker'
+// import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
+require('dotenv').config()
+
+const DEV_URL = process.env.DEV_URL
 
 export default class AddDevice extends Component {
     constructor(props) {
@@ -60,7 +63,7 @@ export default class AddDevice extends Component {
         }
 
         // Save to db
-        const res = await axios.post('http://localhost:5000/devices', newDevice)
+        const res = await axios.post(`${DEV_URL}devices`, newDevice)
 
         if (res.status === 200) {
             console.log(res.data)
@@ -87,9 +90,15 @@ export default class AddDevice extends Component {
                         <Form.Control type="text" placeholder="Enter field" value={this.state.description} onChange={this.onChangeDescription} />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicDate">
+                    {/* <Form.Group className="mb-3" controlId="formBasicDate">
                         <Form.Label>Choose an availability for this device</Form.Label>
                         <DatePicker selected={this.state.availability} onChange={this.onChangeAvailability} />
+                    </Form.Group> */}
+
+                    <Form.Group className="mb-3" controlId="formBasicDescription">
+                        <Form.Label>Availability</Form.Label>
+                        <Form.Check type="radio" name="availability" label="Yes" />
+                        <Form.Check type="radio" name="availability" label="No" />
                     </Form.Group>
 
                     <Button variant="primary" type="submit">
