@@ -19,6 +19,7 @@ export default class AddDevice extends Component {
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
+            id: '',
             name: '',
             field: '',
             description: '',
@@ -28,7 +29,6 @@ export default class AddDevice extends Component {
     }
 
     onChangeName(e) {
-        console.log(this.state)
         this.setState({
             name: e.target.value
         })
@@ -52,9 +52,9 @@ export default class AddDevice extends Component {
         })
     }
 
-    onSubmit(e) {
+    async onSubmit(e) {
         e.preventDefault()
-        const newDevice = {
+        const editedDevice = {
             name: this.state.name,
             field: this.state.field,
             description: this.state.description,
@@ -62,22 +62,24 @@ export default class AddDevice extends Component {
         }
 
         // Save to db
-        console.log(newDevice)
+        const res = await axios.put('http://localhost:5000/devices/' + this.state._id, editedDevice)
 
-        // window.location = '/'
+        if (res.status === 200) {
+            console.log(res.data)
+            window.location = '/devices'
+        }
     }
 
     async componentDidMount() {
-        const res = await axios.get('http://localhost:5000/devices')
-
+        const res = await axios.get('http://localhost:5000/devices/' + this.props.match.params.id)
 
         if (res.status === 200) {
             console.log('===========')
-            console.log(res.data[0])
-            const { name, field, description, images } = res.data[0]
+            console.log(res.data)
+            const { _id, name, field, description } = res.data
             console.log(name)
             this.setState({
-                name, field, description, images
+                _id, name, field, description
                 // name: name, field: field, description: description, images: images, availability: availability
             })
         }
@@ -105,6 +107,7 @@ export default class AddDevice extends Component {
 
                     <Form.Group className="mb-3" controlId="formBasicDate">
                         <Form.Label>Choose an availability for this device</Form.Label>
+                        <br></br>
                         <DatePicker selected={this.state.availability} onChange={this.onChangeAvailability} />
                     </Form.Group>
 
