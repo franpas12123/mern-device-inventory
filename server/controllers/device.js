@@ -1,8 +1,31 @@
 let Device = require('../models/device.model')
 
-function getDevice(req, res) {
+function getDevices(req, res) {
     Device.find()
         .then(device => res.json(device))
+        .catch(err => res.status(400).json(`Error: ${err}`))
+}
+
+function getDevice(req, res) {
+    Device.findById(req.params.id)
+        .then(device => res.json(device))
+        .catch(err => res.status(400).json(`Error: ${err}`))
+}
+
+function updateDevice(req, res) {
+    Device.findById(req.params.id)
+        .then(device => {
+            const { name, field, description, availability } = req.body
+
+        device.name = name
+        device.field = field
+        device.description = description
+        device.date = Date.parse(availability)
+
+        device.save()
+            .then(() => res.json('Device updated!'))
+            .catch(err => res.status(400).json(`Error: ${err}`))
+        })
         .catch(err => res.status(400).json(`Error: ${err}`))
 }
 
@@ -29,8 +52,10 @@ function checkHealth(req, res) {
 }
 
 module.exports = {
+    getDevices,
     getDevice,
     addDevice,
+    updateDevice,
     checkHealth,
     deleteDevice
 }
