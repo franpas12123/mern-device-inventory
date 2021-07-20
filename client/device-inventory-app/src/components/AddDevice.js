@@ -64,7 +64,7 @@ export default class AddDevice extends Component {
 
         if (res.status === 200) {
             console.log(res.data)
-            window.location = '/'
+            window.location = '/devices'
         }
     }
     render() {
