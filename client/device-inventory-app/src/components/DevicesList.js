@@ -10,6 +10,7 @@ import VerticalBar from './VerticalBar';
 
 const Device = props => {
     const { _id, name, field, description, images, availability } = props.device
+    console.log(_id)
     return (
         <tr>
             <td>{name}</td>
@@ -64,8 +65,10 @@ export default class DevicesList extends Component {
     render() {
         return (
             <Container>
-                {console.log(this.state.data)}
-                <VerticalBar></VerticalBar>
+                {/* {console.log(this.state.data)} */}
+                <div className='chart'>
+                    <VerticalBar></VerticalBar>
+                </div>
                 <div>
                     <br></br>
                     <Table striped bordered hover variant="dark" responsive>

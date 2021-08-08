@@ -1,3 +1,5 @@
+import { axios } from "axios";
+
 const { addDevice } = require('../controllers/device')
 
 const BASE_URL = process.env.DEV_URL;
@@ -14,5 +16,5 @@ test('adding new device', () => {
         availability: availability
     }
 
-    expect(addDevice(req,res))
+    expect(addDevice(req, res))
 })
